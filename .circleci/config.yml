@@ -1,0 +1,8 @@
+version: 2.1
+
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: scp -o StrictHostKeyChecking=no -r ./* $CIRCLECI_USER@$HOST:$DEV_PATH
