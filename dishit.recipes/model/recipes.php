@@ -91,5 +91,5 @@
             }
 
         }
-        return ($sum / $x) . " from " . $x . " ratings";
+        return ($x==0?"0":($sum/$x)) . " from " . $x . " ratings";
     } // end calculateRecipeRating
