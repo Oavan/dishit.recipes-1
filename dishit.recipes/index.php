@@ -10,12 +10,13 @@
     session_start();
 
     // debugging output
+    /*
     echo '<br><br>$_SESSION = <pre>';
     print_r($_SESSION);
     echo "</pre>\n" . '$_REQUEST = <pre>';
     print_r($_REQUEST);
     echo '</pre>';
-
+    */
     // look to the request array for an action, or go to the recipe list
     if (isset($_REQUEST['action']))
         $action=$_REQUEST['action'];
