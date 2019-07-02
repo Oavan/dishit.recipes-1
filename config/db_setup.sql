@@ -8,8 +8,10 @@ CREATE TABLE users (
     created DATETIME,
     modified DATETIME
 );
-INSERT INTO users VALUES (1,'testuser','test@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
-INSERT INTO users VALUES (2,'testadmin','testadmin@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','true',NOW(),NOW());
+INSERT INTO users VALUES (1,'jbugni','testadmin@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','true',NOW(),NOW());
+INSERT INTO users VALUES (2,'cooluser','cooluser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
+INSERT INTO users VALUES (3,'meanuser','meanuser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
+INSERT INTO users VALUES (3,'saduser','saduser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
 # passwords are encoded with SHA1 -> test123
 
 
@@ -27,8 +29,6 @@ CREATE TABLE recipes (
     UNIQUE KEY (slug),
     FOREIGN KEY recipe_author (user_id) REFERENCES users(id) ON UPDATE CASCADE  ON DELETE CASCADE
 ) CHARSET=utf8mb4;
-INSERT INTO recipes VALUES (1,1,'Test Recipe','test-recipe','This is a test recipe','1 cup of test','Boil test','TRUE',NOW(),NOW());
-INSERT INTO recipes VALUES (2,1,'Second Test Recipe','sec-test-recipe','This is another test recipe','1 cup of test','Boil some more test','TRUE',NOW(),NOW());
 
 CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,10 +40,6 @@ CREATE TABLE comments (
     FOREIGN KEY comment_author (user_id) REFERENCES users(id) ON UPDATE CASCADE  ON DELETE CASCADE,
     FOREIGN KEY comment_recipe (recipe_id) REFERENCES recipes(id) ON UPDATE CASCADE  ON DELETE CASCADE
 ) CHARSET=utf8mb4;
-INSERT INTO comments VALUES (1,1,1,'This recipe is amazing!',NOW(),NOW());
-INSERT INTO comments VALUES (2,2,1,'I concur. The best!',NOW(),NOW());
-INSERT INTO comments VALUES (3,2,2,'This is not so good',NOW(),NOW());
-INSERT INTO comments VALUES (4,1,2,'I disagree. I love it!',NOW(),NOW());
 
 CREATE TABLE ratings (
     id INT AUTO_INCREMENT PRIMARY KEY,
