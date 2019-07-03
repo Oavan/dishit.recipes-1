@@ -81,4 +81,30 @@
         return $results['id'];
     }
 
+    function changePassword($user_id, $password, $passwordConfirmation){
+	    if(verifyPasswordMatch($password,$passwordConfirmation)){
+            return updatePassword($user_id, $password);
+        }
+	    return false;
+    }
+    function verifyPasswordMatch($password, $passwordConfirmation){
+	    if($password === $passwordConfirmation){
+	        return true;
+        }
+	    return false;
+    }
+
+    function updatePassword($user_id,$password){
+	    global $db;
+        $query = "Update users
+							  Set password=:password
+							  Where id=:user_id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':password',sha1($password)); // update this to use a better hashing algorithm
+        $statement->bindValue(':username',$user_id);
+        $statement->execute();
+        $statement->closeCursor();
+
+        return $statement->rowCount();  // return 1 if successful
+    }
 ?>
