@@ -1,5 +1,5 @@
 <?php
-$dsn = 'mysql:host=localhost;dbname=dishit_dev';
+$dsn = 'mysql:host=localhost;dbname=dishit';
 $username = 'root';
 $password = '';
 $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);

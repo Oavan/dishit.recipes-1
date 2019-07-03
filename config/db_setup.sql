@@ -1,4 +1,4 @@
-use dishit_dev;
+use dishit;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255),
@@ -15,7 +15,7 @@ INSERT INTO users VALUES (4,'saduser','saduser@urbanlmbrjck.com','7288edd0fc3ffc
 INSERT INTO users VALUES (5,'tenbite','tenbite@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
 INSERT INTO users VALUES (6,'kai','kai@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
 INSERT INTO users VALUES (7,'nammy','nammy@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
-INSERT INTO users VALUES (5,'dionndra','dionndra@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
+INSERT INTO users VALUES (8,'dionndra','dionndra@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
 # passwords are encoded with SHA1 -> test123
 
 
