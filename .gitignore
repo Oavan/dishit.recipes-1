@@ -1,3 +1,7 @@
+# PHPStorm
+/.idea/*
+!/.idea/empty
+
 # CakePHP 3
 
 /vendor/*

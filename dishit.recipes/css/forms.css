@@ -1,0 +1,30 @@
+.formStyle .flowLabel{
+	float:none;
+	width:0px;
+	text-align:left; 
+}
+
+.formStyle label {
+	text-align:right;
+	float: left;
+	vertical-align:top;
+	width: 175px;  
+	padding-right: 10px;
+	}
+	
+.formStyle  input, textarea, select, button {
+	margin-bottom:10px;
+}
+
+.formStyle fieldset input{
+	float:none;
+}
+
+.checkbox {
+	margin-left: 0px  
+}
+
+.formStyle br {clear:both;}
+
+.formStyle  img {margin-left: 5px;}  /* for error icons */
+
