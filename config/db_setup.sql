@@ -8,10 +8,10 @@ CREATE TABLE users (
     created DATETIME,
     modified DATETIME
 );
-INSERT INTO users VALUES (1,'jbugni','testadmin@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','true',NOW(),NOW());
-INSERT INTO users VALUES (2,'cooluser','cooluser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
-INSERT INTO users VALUES (3,'meanuser','meanuser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
-INSERT INTO users VALUES (3,'saduser','saduser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc','false',NOW(),NOW());
+INSERT INTO users VALUES (1,'jbugni','testadmin@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',true,NOW(),NOW());
+INSERT INTO users VALUES (2,'cooluser','cooluser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
+INSERT INTO users VALUES (3,'meanuser','meanuser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
+INSERT INTO users VALUES (4,'saduser','saduser@urbanlmbrjck.com','7288edd0fc3ffcbe93a0cf06e3568e28521687bc',false,NOW(),NOW());
 # passwords are encoded with SHA1 -> test123
 
 
