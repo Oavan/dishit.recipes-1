@@ -1,7 +1,6 @@
 <?php include('views/header.php'); ?>
 <?php include('views/menubar.php'); ?>
 
-<script type="text/javascript" src="javascript/donors.js"></script>
 <script type="text/javascript" src="javascript/toTitleCase.js"></script>
 <script type="text/javascript" src="javascript/formatPhone.js"></script>
 
