@@ -1,7 +1,6 @@
 <?php include('views/header.php'); ?>
 <?php include('views/menubar.php'); ?>
 
-<script type="text/javascript" src="javascript/donors.js"></script>
 <script type="text/javascript" src="javascript/toTitleCase.js"></script>
 <script type="text/javascript" src="javascript/formatPhone.js"></script>
 
@@ -37,7 +36,7 @@
         </div>
 
         <div class="uk-form-row">
-        <textarea class="uk-textarea uk-width-1-1" name="description" id="txtDescription" rows="5" cols="50"><?php echo $description?></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="description" id="txtDescription" rows="5" cols="50"></textarea>
         </div>
 
         <img src="images/Error.gif" id="errDescription"
@@ -52,7 +51,7 @@
         </div>
 
         <div class="uk-form-row">
-        <textarea class="uk-textarea uk-width-1-1" name="ingredients" id="txtIngredients" rows="5" cols="50"><?php echo $ingredients?></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="ingredients" id="txtIngredients" rows="5" cols="50"></textarea>
         </div>
         <img src="images/Error.gif" id="errIngredients"
              width="14" height="14" alt="Error icon"
@@ -65,7 +64,7 @@
         <label for='txtDirections'>Directions:</label>
         </div>
 
-        <textarea class="uk-textarea uk-width-1-1" name="directions" id="txtDirections" rows="5" cols="50"><?php echo $directions?></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="directions" id="txtDirections" rows="5" cols="50"></textarea>
         <img src="images/Error.gif" id="errDirections"
              width="14" height="14" alt="Error icon"
              style="visibility: <?php echo (isset($errors['directions']))? "visible;": "hidden;"; ?>"

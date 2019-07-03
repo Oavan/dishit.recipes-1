@@ -46,6 +46,7 @@
             break; // end login
         case 'logout':
             $_SESSION['authorizedUser'] = false;
+            $_SESSION['user_id'] = null;
             $recipes = getRecipeList();
             include('views/recipeList.php');
             break; // end logout
@@ -108,4 +109,17 @@
             rateRecipe($_REQUEST['recipe_id'], $_REQUEST['rating']);
             header("Location: .?action=recipeDetails&id=" . $_REQUEST['recipe_id']);
             break; // end rateRecipe
+        case 'register':
+            include('views/registerUser.php');
+            break; // end register
+        case 'registerSave':
+            // check for PW match and go to recipe list, else return to try again
+            echo 'registerSave';
+                $id = registerUser($_REQUEST['username'], $_REQUEST['password'], $_REQUEST['passwordConfirm'],$_REQUEST['email']);
+                if($id <> 0){
+                    $_SESSION['authorizedUser'] = true;
+                    $_SESSION['user_id'] = $id;
+                    header("Location: .");
+                } else { echo "fail"; } // need to deal with failure also
+            break;
     }
