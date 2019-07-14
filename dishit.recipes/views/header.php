@@ -27,7 +27,7 @@
             <ul class="uk-navbar-nav uk-margin uk-margin-top">
                 <?php if(isset($_SESSION['authorizedUser']) and $_SESSION['authorizedUser'] == true ) { ?>
                     <li class=""><a href=".?action=recipeNew"><i class="uk-icon-plus-circle"></i> New Recipe</a></li>
-                    <li class=""><a href=""><i class="uk-icon-user"></i> Manage Account: <?php echo getUserName($_SESSION['user_id']) ?></a></li>
+                    <li class=""><a href=".?action=manageaccount"><i class="uk-icon-user"></i> Manage Account: <?php echo getUserName($_SESSION['user_id']) ?></a></li>
                     <li class=""><a href=".?action=logout">Logout</a></li>
                 <?php }else{ ?>
                     <li class=""><a href=".?action=register">Sign Up</a></li>
