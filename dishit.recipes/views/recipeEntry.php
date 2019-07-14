@@ -1,7 +1,7 @@
 <?php include('views/header.php'); ?>
 <?php include('views/menubar.php'); ?>
 
-<script type="text/javascript" src="javascript/toTitleCase.js"></script>
+<script type="text/javascript" src="javascript/toTitleCase.js" xmlns="http://www.w3.org/1999/html"></script>
 <script type="text/javascript" src="javascript/formatPhone.js"></script>
 
 
@@ -11,8 +11,9 @@
 
     <form class='formStyle' id='frmDetails' method='post' action='.'>
         <input type='hidden' name='action'
-               value='<?php echo ($action=='recipeNew' or $action=='recipeSaveNew')?'recipeSaveNew':'recipeUpdate'; ?>'>
+               value='<?php echo ($action=='recipeNew' or $action=='recipeSaveNew')?'recipeSaveNew':'recipeSaveUpdate'; ?>'>
         <input type='hidden' name='user_id' value='<?php echo(isset($user_id))?$user_id:"" ?>'>
+        <input type='hidden' name='recipe_id' value='<?php echo $_REQUEST['recipe_id'] ?>'>
 
         <?php $title = (isset($title))?$title:"" ?>
         <div class="uk-margin-top uk-float-left">
@@ -21,7 +22,8 @@
 
         <div class="uk-form-row">
         <input class="uk-width-1-1 uk-form-large"  type='text' name='title' id='txtTitle'
-               value="<?php echo $title; ?>">
+               value="<?php if(isset($recipeDetails)) echo $recipeDetails['title'];  ?>">
+
         </div>
 
         <img src="images/Error.gif" id="errTitle"
@@ -36,7 +38,7 @@
         </div>
 
         <div class="uk-form-row">
-        <textarea class="uk-textarea uk-width-1-1" name="description" id="txtDescription" rows="5" cols="50"></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="description" id="txtDescription" rows="5" cols="50"> <?php if(isset($recipeDetails)) echo $recipeDetails['description'];  ?></textarea>
         </div>
 
         <img src="images/Error.gif" id="errDescription"
@@ -51,7 +53,7 @@
         </div>
 
         <div class="uk-form-row">
-        <textarea class="uk-textarea uk-width-1-1" name="ingredients" id="txtIngredients" rows="5" cols="50"></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="ingredients" id="txtIngredients" rows="5" cols="50"><?php if(isset($recipeDetails)) echo $recipeDetails['ingredients'];  ?></textarea>
         </div>
         <img src="images/Error.gif" id="errIngredients"
              width="14" height="14" alt="Error icon"
@@ -64,7 +66,7 @@
         <label for='txtDirections'>Directions:</label>
         </div>
 
-        <textarea class="uk-textarea uk-width-1-1" name="directions" id="txtDirections" rows="5" cols="50"></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="directions" id="txtDirections" rows="5" cols="50"><?php if(isset($recipeDetails)) echo $recipeDetails['directions'];  ?></textarea>
         <img src="images/Error.gif" id="errDirections"
              width="14" height="14" alt="Error icon"
              style="visibility: <?php echo (isset($errors['directions']))? "visible;": "hidden;"; ?>"

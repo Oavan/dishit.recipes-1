@@ -10,13 +10,13 @@
     session_start();
 
     // debugging output
-    /*
-    echo '<br><br>$_SESSION = <pre>';
-    print_r($_SESSION);
-    echo "</pre>\n" . '$_REQUEST = <pre>';
-    print_r($_REQUEST);
-    echo '</pre>';
-    */
+
+//    echo '<br><br>$_SESSION = <pre>';
+//    print_r($_SESSION);
+//    echo "</pre>\n" . '$_REQUEST = <pre>';
+//    print_r($_REQUEST);
+//    echo '</pre>';
+
     // look to the request array for an action, or go to the recipe list
     if (isset($_REQUEST['action']))
         $action=$_REQUEST['action'];
@@ -59,22 +59,28 @@
             $comments = getComments($_REQUEST['id']);
             include('views/recipeDetails.php');
             break; // end recipeDetails
+        case 'recipeUpdate':
         case 'recipeNew': // triggered by new recipe link
             // add check to only allow this when user is logged in
+            if(isset($_REQUEST['recipe_id']))
+            {
+                $recipeDetails = getRecipeDetails($_REQUEST['recipe_id']);
+            }
             $details = $_REQUEST;
             include('views/recipeEntry.php');
             break; //end recipeNew
         case 'recipeSaveNew': // triggered by save recipe
-        case 'recipeUpdate':
+        case 'recipeSaveUpdate':
             switch(true){ // determine if save or cancel was selected
                 case isset($_REQUEST['btnCancel']):
                     header("Location: .");
                     break;
                 case isset($_REQUEST['btnSave']):
                     $errors = array(); #$validateRecipeInputs();
+                    echo "btnSave";
                     if(count($errors)==0) {
-                        if ($action == 'recipeUpdate') {
-                            $lastID = updateRecipe();
+                        if ($action == 'recipeSaveUpdate') {
+                            $lastID = updateRecipe($_REQUEST['recipe_id']);
                             header("Location: .?action=recipeDetails&id=" . $_REQUEST['recipe_id']);
                         } else {
                             $lastID = insertRecipe();
