@@ -110,7 +110,7 @@
                             header("Location: .?action=recipeDetails&id=" . $_REQUEST['recipe_id']);
                         }
                     }
-            } // end commentSaveNew, commentUpdate
+            } break; // end commentSaveNew, commentUpdate
         case 'rateRecipe':
             rateRecipe($_REQUEST['recipe_id'], $_REQUEST['rating']);
             header("Location: .?action=recipeDetails&id=" . $_REQUEST['recipe_id']);

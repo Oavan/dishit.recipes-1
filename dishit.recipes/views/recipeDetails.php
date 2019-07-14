@@ -49,11 +49,12 @@
             <button class="uk-button uk-button-primary" type='submit' id='btnSave' name='btnSave'><img src='images/save.gif'> Save</button>
         </form>
     <?php } ?>
+    </div>
 
-
+    <div class="uk-panel uk-panel-box uk-margin-left uk-margin-right">
     <h3>Comments:</h3>
     <div class="uk-comment uk-comment-primary">
-<?php foreach ($comments as $comment){ ?>
+    <?php foreach ($comments as $comment){ ?>
         <h4><?php echo $comment['username'] ?></h4>
         <?php echo $comment['comment'] ?> <br/>
         <div class="uk-text-muted">
@@ -69,5 +70,7 @@
     <button class="uk-button  uk-button-secondary"><a class=" uk-icon-comment"  href=".?action=commentNew&recipe_id=<?php echo $_REQUEST['id']?>">  New Comment</button></a>
     <?php } ?>
     </div>
-</div>
+
+
+
 <?php include('views/footer.php'); ?>
