@@ -50,7 +50,7 @@
     function getRecipeDetails($id){
         global $db;
 
-        $query = "Select r.title, r.ingredients,r.description,r.directions,r.modified,u.username from recipes r inner join users u on u.id = r.user_id where r.id = :id";
+        $query = "Select r.user_id, r.title, r.ingredients,r.description,r.directions,r.modified,u.username from recipes r inner join users u on u.id = r.user_id where r.id = :id";
         $statement = $db->prepare($query);
         $statement->bindValue(':id', $id);
         //Parameters processed here
@@ -93,3 +93,35 @@
         }
         return ($x==0?"0":($sum/$x)) . " from " . $x . " ratings";
     } // end calculateRecipeRating
+
+    function isRecipeOwner($currentUserID, $ownerID) {
+	    if($currentUserID==$ownerID)
+	        return true;
+	    else
+	        return false;
+    }
+
+    function updateRecipe($recipe_id) {
+
+        global $db;
+
+        extract($_REQUEST);
+
+        $query = " UPDATE recipes set title=:title, description=:description, ingredients=:ingredients, directions=:directions, modified= NOW() WHERE id=:id; ";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', $recipe_id);
+        $statement->bindValue(':title', $_REQUEST['title']);
+        $statement->bindValue(':description', $_REQUEST['description']);
+        $statement->bindValue(':ingredients', $_REQUEST['ingredients']);
+        $statement->bindValue(':directions', $_REQUEST['directions']);
+
+        $statement->execute();
+        $statement->closeCursor();
+
+        if($statement->rowCount()==1){
+            return $db->lastInsertId();
+        } else {
+            return $statement->rowCount();
+        }
+    }

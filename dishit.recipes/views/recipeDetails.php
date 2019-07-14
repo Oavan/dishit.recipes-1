@@ -6,7 +6,16 @@
                 <div class="uk-panel uk-panel-box">
                 <h1><?php echo $recipe['title']?></h1>
                     <p>By: <?php echo $recipe['username'] ?></p>
-                    Overall Rating: <?php echo calculateRecipeRating($_REQUEST['id']) ?><br/>
+    Overall Rating: <?php echo calculateRecipeRating($_REQUEST['id']) ?><br/>
+<?php if(isset($_SESSION['authorizedUser']) and $_SESSION['authorizedUser'] == true and isRecipeOwner($_SESSION['user_id'],$recipe['user_id']) ) { ?>
+                    <form class='formStyle' id='update' method='post' action='.'>
+                        <input type='hidden' name='action' value='recipeUpdate'; ?>
+                        <input type='hidden' name='user_id' value='<?php echo (isset($_SESSION['user_id']))?$_SESSION['user_id']:"" ?>'>
+                        <input type='hidden' name='recipe_id' value='<?php echo $_REQUEST['id'] ?>'>
+                        <button class="uk-button uk-button-primary" type='submit' id='btnUpdate' name='btnUpdate'><img src='images/save.gif'> Update</button>
+                    </form>
+    <?php } ?>
+
                 </div>
         <h3 class="uk-text-bold">Description</h3>
         <?php echo $recipe['description']?>
