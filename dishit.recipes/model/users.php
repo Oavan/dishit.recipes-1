@@ -158,4 +158,21 @@
 	        return insertUser($username,$password,$email); // return user_id or 0 if no rows added
         } else { return 0; }
     }
+
+function getuserrecipes($user_id){
+    global $db;
+    $query = "Select r.id, r.title, u.username from recipes r inner join users u on u.id = r.user_id where r.user_id = :user_id ";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id',$user_id);
+    $statement->execute();
+
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+
+
+
+}
 ?>
