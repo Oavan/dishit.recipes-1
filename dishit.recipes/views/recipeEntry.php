@@ -38,7 +38,7 @@
         </div>
 
         <div class="uk-form-row">
-        <textarea class="uk-textarea uk-width-1-1" name="description" id="txtDescription" rows="5" cols="50"> <?php if(isset($recipeDetails)) echo $recipeDetails['description'];  ?></textarea>
+        <textarea class="uk-textarea uk-width-1-1" name="description" id="txtDescription" rows="5" cols="50"><?php if(isset($recipeDetails)) echo $recipeDetails['description'];  ?></textarea>
         </div>
 
         <img src="images/Error.gif" id="errDescription"
