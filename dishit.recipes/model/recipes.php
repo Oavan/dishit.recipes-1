@@ -125,3 +125,20 @@
             return $statement->rowCount();
         }
     }
+
+    function searchRecipes($keywords){
+    global $db;
+
+    $query = " SELECT r.id, r.title, r.description, r.ingredients, r.directions, u.username FROM recipes r inner join users u on u.id=r.user_id 
+                WHERE r.title LIKE '%{$keywords}%' OR r.description LIKE '%{$keywords}%' OR r.ingredients LIKE '%{$keywords}%' OR u.username LIKE '%{$keywords}%' ";
+    $statement = $db->prepare($query);
+    $statement->execute();
+
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    //$num_results = $statement->rowCount();
+    return $results;
+
+    } // end searchRecipes
