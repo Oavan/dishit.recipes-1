@@ -138,4 +138,11 @@
 
 
             break;
+        case 'searchResults':
+            $Keywords = $_GET['Keywords'];
+            $recipes = searchRecipes($Keywords);
+            $num_results = sizeof($recipes);
+            include('views/searchResults.php');
+
+            break; // end searchRecipes
     }
