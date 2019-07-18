@@ -130,14 +130,51 @@
             break;
         case 'manageaccount' :
             $recipes = getuserrecipes($_SESSION['user_id']);
+            $email  = getUserEmail($_SESSION['user_id']);
+            $createdDate = getCreatedDate($_SESSION['user_id']);
+            $username = getUserName($_SESSION['user_id']);
             include('views/manageuser.php');
 
 
 
 
 
-
             break;
+
+
+        case 'newPassword': // triggered by update password button
+            $details = $_REQUEST;
+            include('views/passwordEntry.php');
+            break; // end commentNew
+
+        case 'passwordUpdate':
+            $details = $_REQUEST;
+            $currentPassword = getUserPassword(getUserName($_SESSION['user_id']));
+            switch(true){ // determine if save or cancel was selected
+                case isset($_REQUEST['btnCancel']):
+                    header("Location: .?action=manageaccount");
+                    break;
+                case isset($_REQUEST['btnSave']):
+                    $enteredPassword = ($_REQUEST['enteredPassword']);
+                    $passwordNew = ($_REQUEST['passwordNew']);
+                    $passwordConfirm = ($_REQUEST['passwordConfirm']);
+                    if(sha1($enteredPassword)!=$currentPassword) {
+                        echo "invalid current password";
+                        //header("refresh:5; URL: .?action=newPassword&user_id=" .$_SESSION['user_id'] );
+
+                    } else if(verifyPasswordMatch($passwordNew,$passwordConfirm) and (updatePassword($_SESSION['user_id']))==true) {
+                        header( "Location: .?action=manageaccount" ); //wait for 5 seconds before redirecting
+                        echo "password updated";
+
+                    } else {
+                        echo "New Password Doesn't Match";
+                    }
+
+            }
+//
+
+            break; // password update
+
         case 'searchResults':
             $Keywords = $_GET['Keywords'];
             $recipes = searchRecipes($Keywords);
