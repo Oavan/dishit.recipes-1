@@ -67,97 +67,138 @@ function insertUser($username, $password, $email){
                                     FALSE, 
                                     NOW(),
                                     NOW())"; // approve by default for testing
-        $statement = $db->prepare($query);
-        $statement->bindValue(':username', $username);
-        $statement->bindValue(':email', $email);
-        $statement->bindValue(':password', sha1($password));
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':password', sha1($password));
 
 
-        $statement->execute();
-        $statement->closeCursor();
+    $statement->execute();
+    $statement->closeCursor();
 
-        if($statement->rowCount()==1){
-            return $db->lastInsertId();
-        } else {
-            return $statement->rowCount();
-        }
+    if($statement->rowCount()==1){
+        return $db->lastInsertId();
+    } else {
+        return $statement->rowCount();
     }
+}
 
-	// this function accepts a username and password as parameters and returns TRUE
-	//	if username and password match, otherwise FALSE is returned
-	function isAuthorizedUser($username, $password){
+// this function accepts a username and password as parameters and returns TRUE
+//	if username and password match, otherwise FALSE is returned
+function isAuthorizedUser($username, $password){
 
-		if(isUser($username)){
-			if(sha1($password) == getUserPassword($username))
-				return true;
-		}
-		return false;		
-	} //end isAuthorizedUser
+    if(isUser($username)){
+        if(sha1($password) == getUserPassword($username))
+            return true;
+    }
+    return false;
+} //end isAuthorizedUser
 
-    function getUserID($username){
-	    global $db;
+function getUserID($username){
+    global $db;
 
-        $query = "Select id From users
+    $query = "Select id From users
 						Where username=:username";
-        $statement = $db->prepare($query);
-        $statement->bindValue(':username', $username);
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
 
-        $statement->execute();
+    $statement->execute();
 
-        $results = $statement->fetch();
+    $results = $statement->fetch();
 
-        $statement->closeCursor();
-        return $results['id'];
-    }
+    $statement->closeCursor();
+    return $results['id'];
+}
 
-    function getUserName($user_id){
-        global $db;
+function getUserName($user_id){
+    global $db;
 
-        $query = "Select username From users
+    $query = "Select username From users
 						Where id=:user_id";
-        $statement = $db->prepare($query);
-        $statement->bindValue(':user_id', $user_id);
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
 
-        $statement->execute();
+    $statement->execute();
 
-        $results = $statement->fetch();
+    $results = $statement->fetch();
 
-        $statement->closeCursor();
-        return $results['username'];
+    $statement->closeCursor();
+    return $results['username'];
+}
+
+function getUserEmail($user_id){
+    global $db;
+
+    $query = "Select email From users
+                            Where id=:user_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+
+    $statement->execute();
+
+    $results = $statement->fetch();
+
+    $statement->closeCursor();
+    return $results['email'];
+}
+
+function getCreatedDate($user_id) {
+    global $db;
+
+    $query = "Select created From users
+                            Where id=:user_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+
+    $statement->execute();
+
+    $results = $statement->fetch();
+
+    $statement->closeCursor();
+    return $results['created'];
+}
+
+
+function changePassword($user_id, $password, $passwordConfirmation){
+    if(verifyPasswordMatch($password,$passwordConfirmation)){
+        return updatePassword($user_id, $password);
     }
-
-    function changePassword($user_id, $password, $passwordConfirmation){
-	    if(verifyPasswordMatch($password,$passwordConfirmation)){
-            return updatePassword($user_id, $password);
-        }
-	    return false;
+    return false;
+}
+function verifyPasswordMatch($password, $passwordConfirmation){
+    if($password === $passwordConfirmation){
+        return true;
     }
-    function verifyPasswordMatch($password, $passwordConfirmation){
-	    if($password === $passwordConfirmation){
-	        return true;
-        }
-	    return false;
-    }
+    return false;
+}
 
-    function updatePassword($user_id,$password){
-	    global $db;
-        $query = "Update users
-							  Set password=:password
-							  Where id=:user_id";
-        $statement = $db->prepare($query);
-        $statement->bindValue(':password',sha1($password)); // update this to use a better hashing algorithm
-        $statement->bindValue(':username',$user_id);
-        $statement->execute();
-        $statement->closeCursor();
+function updatePassword($user_id) {
 
-        return $statement->rowCount();  // return 1 if successful
-    }
+    global $db;
 
-    function registerUser($username,$password,$passwordConfirmation,$email){
-	    if(verifyPasswordMatch($password,$passwordConfirmation)){
-	        return insertUser($username,$password,$email); // return user_id or 0 if no rows added
-        } else { return 0; }
+    extract($_REQUEST);
+
+    $query = " UPDATE users set password=:password, modified= NOW() WHERE id=:id ";
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $user_id);
+    $statement->bindValue(':password', (sha1($_REQUEST['passwordConfirm'])));
+
+    $statement->execute();
+    $statement->closeCursor();
+
+    if($statement->rowCount()==1){
+        return true;
+    } else {
+        return $statement->rowCount();
     }
+}
+
+function registerUser($username,$password,$passwordConfirmation,$email){
+    if(verifyPasswordMatch($password,$passwordConfirmation)){
+        return insertUser($username,$password,$email); // return user_id or 0 if no rows added
+    } else { return 0; }
+}
 
 function getuserrecipes($user_id){
     global $db;
@@ -175,4 +216,6 @@ function getuserrecipes($user_id){
 
 
 }
+
+
 ?>
